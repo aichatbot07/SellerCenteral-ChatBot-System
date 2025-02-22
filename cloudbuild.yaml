@@ -2,3 +2,5 @@ steps:
   - name: 'ubuntu'
     script: |
       echo "Cloud Build Trigger Test Successful!"
+options:
+  logging: CLOUD_LOGGING_ONLY
