@@ -1,0 +1,9 @@
+pandas
+google-cloud-storage
+google-cloud-bigquery
+apache-airflow
+langchain
+openai
+fastapi
+uvicorn
+docker
