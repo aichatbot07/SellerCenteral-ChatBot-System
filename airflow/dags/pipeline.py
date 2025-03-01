@@ -6,12 +6,10 @@ from datetime import datetime
 
 
 
-# Add the parent directory (chatbot/) to the Python path so 'scripts' can be found
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
-
 # Importing necessary functions from scripts/data_process
-from scripts.data_process import list_jsonl_files, process_jsonl_from_gcs, save_csv_to_gcs
-# Default Arguments for DAG
+import data_process
+from data_process import list_jsonl_files, process_jsonl_from_gcs, save_csv_to_gcs
+
 default_args = {
     "owner": "airflow",
     "start_date": datetime(2024, 2, 20),
