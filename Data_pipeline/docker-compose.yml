@@ -1,0 +1,47 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres_db_volume:/var/lib/postgresql/data
+
+  webserver:
+    image: apache/airflow:2.6.0
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__FERNET_KEY: "Zw6tlFrxfoNkjJO8tSfCsEaiVLDKXYbDpby0vjnB3pQ="
+      GOOGLE_APPLICATION_CREDENTIALS: "/opt/airflow/gcp-credentials.json"  # Set environment variable
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./dags/gcp-credidentials.json:/opt/airflow/gcp-credentials.json  # Mount credentials file
+    ports:
+      - "8080:8080"
+    command: webserver
+
+  scheduler:
+    image: apache/airflow:2.6.0
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__FERNET_KEY: "Zw6tlFrxfoNkjJO8tSfCsEaiVLDKXYbDpby0vjnB3pQ="
+      GOOGLE_APPLICATION_CREDENTIALS: "/opt/airflow/gcp-credentials.json"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./dags/gcp-credidentials.json:/opt/airflow/gcp-credentials.json
+    command: scheduler
+
+volumes:
+  postgres_db_volume:
