@@ -34,3 +34,8 @@ Follow these steps to set up the environment on your local machine:
     
 3. **Install the required dependencies:**
     ```pip install -r requirements.txt
+
+4. **Set up Google Cloud credentials:**
+- Ensure you have a Google Cloud project and the necessary permissions to access GCS.
+- Download your credentials.json from the Google Cloud Console and set the environment variable:
+    ```export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/credentials.json"
