@@ -11,6 +11,15 @@ OUTPUT_FILE = "processed/reviews_processed.csv"  # Merged CSV output path
 
 SELLER_IDS = ["2471521", "2471522", "2471523", "2471524", "2471525"]
 
+# Dictionary to ensure consistent seller ID assignment
+parent_asin_seller_map = {}
+
+def assign_seller_id(parent_asin):
+    """Assigns a consistent seller ID for each unique parent_asin."""
+    if parent_asin not in parent_asin_seller_map:
+        parent_asin_seller_map[parent_asin] = random.choice(SELLER_IDS)
+    return parent_asin_seller_map[parent_asin]
+
 def list_jsonl_files(bucket_name, folder_name):
     """Lists all JSONL files in the specified GCS folder."""
     try:
@@ -26,7 +35,7 @@ def list_jsonl_files(bucket_name, folder_name):
         return []
 
 def process_jsonl_from_gcs(bucket_name, jsonl_files):
-    """Reads and processes JSONL files from GCS, assigning seller IDs."""
+    """Reads and processes JSONL files from GCS, assigning seller IDs consistently."""
     client = storage.Client()
     all_data = []
 
@@ -59,11 +68,11 @@ def process_jsonl_from_gcs(bucket_name, jsonl_files):
 
             df = pd.DataFrame(valid_records)
 
-            # Ensure 'asin' column exists before assigning seller IDs
-            if "asin" in df.columns:
-                df["seller_id"] = df["asin"].apply(lambda x: random.choice(SELLER_IDS))
+            # Ensure 'parent_asin' column exists before assigning seller IDs
+            if "parent_asin" in df.columns:
+                df["seller_id"] = df["parent_asin"].apply(assign_seller_id)
             else:
-                print(f"Skipping {jsonl_file} - missing 'asin' column.")
+                print(f"Skipping {jsonl_file} - missing 'parent_asin' column.")
 
             all_data.append(df)
 

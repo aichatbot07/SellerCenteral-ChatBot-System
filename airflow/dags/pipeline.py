@@ -3,12 +3,18 @@ import os
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
+from pathlib import Path
+
+# Add the parent directory to sys.path
+# dag_path = Path(__file__).parent
+# parent_path = str(dag_path.parent)
+# if parent_path not in sys.path:
+#     sys.path.append(parent_path)
 
 
-
-# Importing necessary functions from scripts/data_process
-import data_process
-from data_process import list_jsonl_files, process_jsonl_from_gcs, save_csv_to_gcs
+# # Importing necessary functions from scripts/data_process
+# from scripts.data_process import list_jsonl_files, process_jsonl_from_gcs, save_csv_to_gcs
+from scripts.data_process import list_jsonl_files, process_jsonl_from_gcs, save_csv_to_gcs
 
 default_args = {
     "owner": "airflow",
