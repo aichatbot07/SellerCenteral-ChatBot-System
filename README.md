@@ -96,3 +96,57 @@ seller-central-chatbot/
     ├── raw/                      # Raw data stored in GCS bucket
     ├── processed/                # Processed data output (CSV)
     └── reviews/                  # JSONL files containing reviews
+
+
+## Reproducibility & Data Versioning
+
+- ensure reproducibility, follow these steps:
+
+1. Clone the repository and install dependencies: As described in the Environment Setup section.
+
+2. Use DVC to version the data: The data files are versioned with DVC. Use DVC to pull the latest data when setting up the project:
+
+    ```bash
+    dvc pull
+
+3. Re-run the pipeline: Once the environment is set up and dependencies installed, you can re-run the pipeline with:
+
+    ```bash
+    python scripts/sellerId_check.py
+
+
+This will ensure that the data, code, and environment are consistent across different machines.
+
+## Code Style & Guidelines
+
+The code in this repository follows Python's PEP 8 guidelines for readability and consistency.
+
+- **Modular Programming:** The code is divided into smaller, reusable functions for clarity and maintainability.
+- **Naming Conventions:** Variables, functions, and classes use descriptive and consistent naming conventions as per PEP 8.
+- **Documentation:** All functions and classes are documented with docstrings to explain their purpose and usage.
+
+## Error Handling & Logging
+
+The project includes error handling to ensure smooth execution and provide detailed logs for troubleshooting.
+
+- **File Processing Errors:** If the JSONL data files are malformed or missing, the script will print warnings and skip those files.
+- **Data Unavailability:** The pipeline checks if required columns like `parent_asin` are missing, and logs appropriate error messages.
+- **Logging:** The project uses print statements to log progress, errors, and warnings. You can customize this to use a more advanced logging framework like `logging` for better control.
+
+## Contributing
+
+Contributions are welcome! If you want to improve the project, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Commit your changes.
+4. Push your branch and create a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Example Code Snippets
+
+**Example: How to use the `assign_seller_id` function**
+
