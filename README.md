@@ -96,7 +96,7 @@ seller-central-chatbot/
     ├── raw/                      # Raw data stored in GCS bucket
     ├── processed/                # Processed data output (CSV)
     └── reviews/                  # JSONL files containing reviews
-
+```
 
 ## Reproducibility & Data Versioning
 
