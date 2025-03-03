@@ -2,8 +2,9 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
 from datetime import timedelta
-from dataflow_processing import read_csv_from_gcp, create_bigquery_dataset, upload_to_bigquery
-
+from dataflow_processing import read_csv_from_gcp, create_bigquery_dataset, upload_to_bigquery, validate_data_with_tfdv
+from fetch_data import upload_to_gcs_from_url
+from data_process import save_csv_to_gcs
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -20,7 +21,18 @@ dag = DAG(
     schedule_interval="@daily",
     catchup=False,  
 )
-
+fetch_data = PythonOperator(
+    task_id="fetch_data",
+    python_callable=upload_to_gcs_from_url,
+    provide_context=True, 
+    dag=dag
+)
+data_processing = PythonOperator(
+    task_id="data_processing",
+    python_callable=save_csv_to_gcs,
+    provide_context=True, 
+    dag=dag
+)
 read_csv = PythonOperator(
     task_id="read_csv",
     python_callable=read_csv_from_gcp,
@@ -31,6 +43,12 @@ read_csv = PythonOperator(
 create_dataset = PythonOperator(
     task_id='create_dataset',
     python_callable=create_bigquery_dataset,
+    dag=dag,
+)
+Anamoly = PythonOperator(
+    task_id='Anamoly',
+    python_callable=validate_data_with_tfdv,
+    op_kwargs={"df": "{{ task_instance.xcom_pull(task_ids='read_csv') }}"},  
     dag=dag,
 )
 
