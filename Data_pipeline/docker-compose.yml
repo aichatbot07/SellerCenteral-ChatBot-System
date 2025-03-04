@@ -11,14 +11,15 @@ services:
     restart: always  
 
   webserver:
-    image: apache/airflow:2.6.0
+    build: .
+    image: my_airflow:2.6.0
     depends_on:
       - postgres
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__FERNET_KEY: "Zw6tlFrxfoNkjJO8tSfCsEaiVLDKXYbDpby0vjnB3pQ="
-      GOOGLE_APPLICATION_CREDENTIALS: "/opt/airflow/gcp-credentials.json"
+      GOOGLE_APPLICATION_CREDENTIALS: "/opt/airflow/dags/gcp-credentials.json"
       _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_USER}  
       _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_PASSWORD}  
       _AIRFLOW_WWW_USER_EMAIL: ${AIRFLOW_EMAIL}  
@@ -27,7 +28,6 @@ services:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
-      - ./gcp-credentials.json:/opt/airflow/gcp-credentials.json
     ports:
       - "8080:8080"
     command: >
@@ -36,19 +36,18 @@ services:
                airflow webserver"
 
   scheduler:
-    image: apache/airflow:2.6.0
+    image: my_airflow:2.6.0
     depends_on:
       - postgres
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__FERNET_KEY: "Zw6tlFrxfoNkjJO8tSfCsEaiVLDKXYbDpby0vjnB3pQ="
-      GOOGLE_APPLICATION_CREDENTIALS: "/opt/airflow/gcp-credentials.json"  
+      GOOGLE_APPLICATION_CREDENTIALS: "/opt/airflow/dags/gcp-credentials.json"  
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
-      - ./gcp-credentials.json:/opt/airflow/gcp-credentials.json
     command: scheduler
     restart: always  
 
