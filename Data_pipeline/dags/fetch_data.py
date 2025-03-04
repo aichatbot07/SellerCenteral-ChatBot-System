@@ -70,7 +70,7 @@ def upload_to_gcs_from_url():
             logging.info(f"Uploaded {jsonl_filename} to GCS successfully.")
         except Exception as e:
             logging.error(f"Error uploading {jsonl_filename} to GCS: {e}")
-
+# upload_to_gcs_from_url()
 # if __name__ == "__main__":
 #     for url in DATASET_URLS:
 #         upload_to_gcs_from_url(url, BUCKET_NAME)

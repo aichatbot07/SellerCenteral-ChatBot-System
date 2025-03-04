@@ -119,3 +119,5 @@ def save_csv_to_gcs():
     except Exception as e:
         print(f"Error saving CSV to GCS: {e}")
 
+# process_jsonl_from_gcs()
+# save_csv_to_gcs()
