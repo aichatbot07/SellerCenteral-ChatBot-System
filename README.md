@@ -103,54 +103,55 @@ airflow webserver --port 8080         # Start Airflow webserver (http://localhos
 
 Here's a breakdown of the project's folder and file structure:
 
-
-#### SellerCentral-Chatbot-System/
-#### │
-#### ├── Data_pipeline/              # Main data pipeline directory
-#### │   ├── .dvc/                   # Data Version Control (DVC) metadata
-#### │   │   ├── .gitignore
-#### │   │   ├── config
-#### │   │
-#### │   ├── dags/                    # Apache Airflow DAGs (Directed Acyclic Graphs)
-#### │   │   ├── __pycache__/         # Cached compiled Python files
-#### │   │   ├── bias_detection.py    # Bias detection logic
-#### │   │   ├── config.py            # Configuration settings
-#### │   │   ├── data_process.py      # Data processing logic
-#### │   │   ├── dataflow_processing.py  # Main dataflow script
-#### │   │   ├── fetch_data.py        # Fetches raw data from GCS
-#### │   │   ├── logging_setup.py     # Logging configurations
-#### │   │   ├── mlops_airflow.py     # MLOps integration with Airflow
-#### │   │   ├── sellerId_check.py    # Data validation script
-#### │   │   ├── .gitignore           # Ignore unnecessary files
-#### │   │   ├── bias_detection.log   # Bias detection logs
-#### │   │
-#### │   ├── data/                    # Data directory (tracked via DVC)
-#### │   │   ├── .gitignore
-#### │   │   ├── new_data_sentiment.csv.dvc  # Tracked dataset
-#### │   │
-#### │   ├── logs/                    # Logs for debugging and monitoring
-#### │   │   ├── .gitignore
-#### │   │   ├── pipeline.log         # Execution logs
-#### │   │
-#### │   ├── tests/                   # Tests for pipeline validation
-#### │   │   ├── __init__.py          # Makes tests a package
-#### │   │   ├── test_fetch_data.py     # Test for fetch_data.py (GCS Extraction)
-#### │   │   ├── test_data_process.py   # Test for data_process.py (Transformation)
-#### │   │   ├── test_bias_detection.py # Test for bias_detection.py
-#### │   │   ├── test_pipeline.py       # Integration test for full ETL pipeline
-#### │   │   ├── test_schema.py         # Test for data schema validation (BigQuery)
-#### │   │   ├── test_dvc.py            # Test for DVC data versioning
-#### │   │   ├── test_airflow.py        # Test for Airflow DAG execution
-#### │
-#### ├── .github/workflows/             # CI/CD automation for testing
-#### │   ├── ci.yml                     # GitHub Actions workflow for local testing
-#### │   ├── ci-gcp.yml                  # GitHub Actions workflow for GCP testing
-#### │
-#### ├── docker-compose.yml           # Docker Compose file for container orchestration
-#### ├── Dockerfile                   # Docker setup for the project
-#### ├── requirements.txt              # Python dependencies
-#### ├── .gitignore                    # Ignore unnecessary files
-#### └── README.md                     # Documentation
+```
+ SellerCentral-Chatbot-System/
+ │
+ ├── Data_pipeline/              # Main data pipeline directory
+ │   ├── .dvc/                   # Data Version Control (DVC) metadata
+ │   │   ├── .gitignore
+ │   │   ├── config
+ │   │
+ │   ├── dags/                    # Apache Airflow DAGs (Directed Acyclic Graphs)
+ │   │   ├── __pycache__/         # Cached compiled Python files
+ │   │   ├── bias_detection.py    # Bias detection logic
+ │   │   ├── config.py            # Configuration settings
+ │   │   ├── data_process.py      # Data processing logic
+ │   │   ├── dataflow_processing.py  # Main dataflow script
+ │   │   ├── fetch_data.py        # Fetches raw data from GCS
+ │   │   ├── logging_setup.py     # Logging configurations
+ │   │   ├── mlops_airflow.py     # MLOps integration with Airflow
+ │   │   ├── sellerId_check.py    # Data validation script
+ │   │   ├── .gitignore           # Ignore unnecessary files
+ │   │   ├── bias_detection.log   # Bias detection logs
+ │   │
+ │   ├── data/                    # Data directory (tracked via DVC)
+ │   │   ├── .gitignore
+ │   │   ├── new_data_sentiment.csv.dvc  # Tracked dataset
+ │   │
+ │   ├── logs/                    # Logs for debugging and monitoring
+ │   │   ├── .gitignore
+ │   │   ├── pipeline.log         # Execution logs
+ │   │
+ │   ├── tests/                   # Tests for pipeline validation
+ │   │   ├── __init__.py          # Makes tests a package
+ │   │   ├── test_fetch_data.py     # Test for fetch_data.py (GCS Extraction)
+ │   │   ├── test_data_process.py   # Test for data_process.py (Transformation)
+ │   │   ├── test_bias_detection.py # Test for bias_detection.py
+ │   │   ├── test_pipeline.py       # Integration test for full ETL pipeline
+ │   │   ├── test_schema.py         # Test for data schema validation (BigQuery)
+ │   │   ├── test_dvc.py            # Test for DVC data versioning
+ │   │   ├── test_airflow.py        # Test for Airflow DAG execution
+ │
+ ├── .github/workflows/             # CI/CD automation for testing
+ │   ├── ci.yml                     # GitHub Actions workflow for local testing
+ │   ├── ci-gcp.yml                  # GitHub Actions workflow for GCP testing
+ │
+ ├── docker-compose.yml           # Docker Compose file for container orchestration
+ ├── Dockerfile                   # Docker setup for the project
+ ├── requirements.txt              # Python dependencies
+ ├── .gitignore                    # Ignore unnecessary files
+ └── README.md                     # Documentation
+```
 
 ## Reproducibility & Data Versioning
 
