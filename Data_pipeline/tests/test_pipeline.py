@@ -1,5 +1,3 @@
-# File: Data_pipeline/tests/test_pipeline.py
-
 import subprocess
 import pytest
 
