@@ -4,7 +4,8 @@ import random
 from google.cloud import storage
 from io import StringIO
 import json
-import config
+from Data_pipeline.dags import config
+
 # Set GCP credentials dynamically from config.py
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = config.GCP_CREDENTIALS_PATH
 
