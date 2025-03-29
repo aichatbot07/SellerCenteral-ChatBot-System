@@ -8,7 +8,6 @@ sys.path.insert(0, repo_root)
 # Import the config module from Data_pipeline/dags
 import Data_pipeline.dags.config as config
 
-# Monkey-patch the config module to add missing attributes.
 if not hasattr(config, "GCP_CREDENTIALS_PATH"):
     config.GCP_CREDENTIALS_PATH = os.getenv("GCP_CREDENTIALS_PATH", "/opt/airflow/dags/gcp-credentials.json")
 if not hasattr(config, "BUCKET_NAME"):

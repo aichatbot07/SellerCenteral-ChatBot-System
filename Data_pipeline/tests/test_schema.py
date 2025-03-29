@@ -1,5 +1,3 @@
-# File: Data_pipeline/tests/test_schema.py
-
 import pytest
 from google.cloud import bigquery
 
