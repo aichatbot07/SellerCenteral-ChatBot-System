@@ -205,4 +205,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Example: How to use the assign_seller_id function**
 
-testing git
