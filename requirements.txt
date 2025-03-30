@@ -18,3 +18,4 @@ sentence-transformers
 nltk==3.8.1
 rouge==1.0.1
 pytest==7.4.0
+mlflow
