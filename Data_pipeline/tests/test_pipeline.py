@@ -1,7 +1,8 @@
 import os
 import sys
-import importlib
 import pendulum
+import pytest
+from airflow.models import DagBag
 
 # --- Monkey-patch pendulum for compatibility with Airflow ---
 # In Pendulum v3, pendulum.tz is no longer callable.
@@ -14,9 +15,6 @@ sys.path.insert(0, repo_root)
 
 # Optionally, you can verify your PYTHONPATH includes the repo_root:
 #print("PYTHONPATH:", sys.path)
-
-import pytest
-from airflow.models import DagBag
 
 def test_dag_loading():
     """

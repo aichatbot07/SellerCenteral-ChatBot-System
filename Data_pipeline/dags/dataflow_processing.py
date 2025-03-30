@@ -2,12 +2,13 @@ import os
 from google.cloud import storage, bigquery
 import pandas as pd
 from io import BytesIO
-import config
-from bias_detection import handle_bias
-from logging_setup import log_event
+from . import config 
+from .bias_detection import handle_bias  
+from .logging_setup import log_event 
+from matplotlib import pyplot as plt
+
 # import tensorflow_data_validation as tfdv
 # import tensorflow as tf
-from matplotlib import pyplot as plt
 
 # Set GCP credentials dynamically from config.py
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = config.GCP_CREDENTIALS_PATH

@@ -1,10 +1,11 @@
 from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python import PythonOperator  
 from airflow.utils.dates import days_ago
 from datetime import timedelta
-from dataflow_processing import read_csv_from_gcp, create_bigquery_dataset, upload_to_bigquery #, validate_data_with_tfdv
-from fetch_data import upload_to_gcs_from_url
-from data_process import save_csv_to_gcs
+from Data_pipeline.dags.dataflow_processing import read_csv_from_gcp, create_bigquery_dataset, upload_to_bigquery
+from Data_pipeline.dags.fetch_data import upload_to_gcs_from_url
+from Data_pipeline.dags.data_process import save_csv_to_gcs  
+
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -24,7 +25,6 @@ dag = DAG(
 fetch_data = PythonOperator(
     task_id="fetch_data",
     python_callable=upload_to_gcs_from_url,
-    provide_context=True, 
     dag=dag
 )
 data_processing = PythonOperator(
