@@ -162,7 +162,7 @@ Contributions are welcome! If you'd like to contribute to this project:
 ---
 =======
 
-## Overview
+## Data Pipeline Overview
 This project implements a chatbot for the Seller Central platform that helps users manage seller data efficiently. The pipeline processes JSONL data files, assigns seller IDs to products, and generates a merged CSV file. This repository also integrates with Google Cloud Storage (GCS) to handle the data.
 
 ---
