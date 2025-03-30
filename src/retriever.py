@@ -25,6 +25,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
 # ---------- Retriever Creation ----------
+
 def create_retriever_from_df(review_df: pd.DataFrame):
     """
     Converts the review DataFrame into a vector database retriever using FAISS.
@@ -34,6 +35,8 @@ def create_retriever_from_df(review_df: pd.DataFrame):
         loader = DataFrameLoader(review_df)
         review_docs = loader.load()
         logger.info(f"Loaded {len(review_docs)} review documents.")
+        logger.info(f"Review Documents: {review_docs}")
+        review_docs = [doc for doc in review_docs if isinstance(doc.page_content, str)]
     except Exception as e:
         logger.exception("Error loading documents from DataFrame: " + str(e))
         review_docs = []

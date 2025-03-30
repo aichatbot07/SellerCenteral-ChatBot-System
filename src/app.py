@@ -7,9 +7,11 @@ from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 import asyncio
 from langchain.prompts import PromptTemplate
 from Data.meta_data import fetch_metadata
-from Data.user_review import fetch_reviews
+from Data.fetch_reviews import fetch_reviews
 from chain import create_qa_chain 
 from retriever import create_retriever_from_df 
+from model_evaluation.bias_detection import detect_bias, analyze_sentiments
+from model_evaluation.tracking_code import log_chat_interaction
 # Load environment variables from .env
 load_dotenv()
 
@@ -31,17 +33,10 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # For example, if using a file mounted in your container:
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
-
-def handle_user_input(user_input):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(async_handle_user_input(user_input))
-
-async def async_handle_user_input(user_input):
-    answer = await qa_chain.ainvoke(user_input)
-    return answer
+# ---------- Streamlit Interface ----------
 
 # Set up the Streamlit page
+
 st.set_page_config(page_title="Amazon Seller Central Chatbot", page_icon="🤖", layout="wide")
 st.title("Amazon Seller Central Chatbot")
 st.subheader("Your Intelligent Seller Companion")
@@ -61,17 +56,9 @@ if asin:
         st.write("Sample Review Data:", review_df.head())
         st.write("Sample Metadata:", meta_df.head())
 
-        system_prompt = (f''' You are a great Data Interpreter and a helpful AI assistant to help the sellers in Amazon eCommerce company. 
-                        Read all the data sent to you. 
-                         Please provide the most appropriate response based on the question'''
-                        "{context}"
-                        '''
-                        Help user answer any question regarding the product. 
-                        Just answer the questions in brief.
+        
 
-                        Your responses should be clear, concise, and insightful.
-                        ''')
-        PROMPT = PromptTemplate(template=system_prompt, input_variables=["context", "question"])
+        # Create a retriever from the reviews DataFrame
         retriever = create_retriever_from_df(review_df)
         # Create the QA chain using the retriever
         qa_chain = create_qa_chain(retriever)
@@ -88,6 +75,16 @@ if asin:
                 st.write(answer)
             except Exception as e:
                 st.error(f"Error generating answer: {e}")
+                
+            # Call bias detection
+            review_sentiments = analyze_sentiments(review_df)
+            bias_result = detect_bias(answer, review_sentiments, len(review_df))
+            if bias_result["bias_detected"]:
+                st.warning(f"Bias detected: {bias_result['bias_types']}")
+            else:
+                st.success("No bias detected.")
+            
+            log_chat_interaction(user_question, answer,model_name="deepseek-chat", temperature=0.5)
         
         # Display conversation history
         st.markdown("### Conversation History")

@@ -1,6 +1,7 @@
 import pandas as pd
 from google.cloud import bigquery
 import logging
+
 # Set up logging (optional; adjust format as needed)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -12,8 +13,8 @@ def fetch_reviews(asin: str) -> pd.DataFrame:
     """
     client = bigquery.Client()
     query = f"""
-    SELECT parent_asin, rating, title, text, asin, user_id, timestamp, helpful_vote, verified_purchase, Category, seller_id, sentiment_label, sentiment_score
-    FROM `spheric-engine-451615-a8.Amazon_Reviews_original_dataset_v4.Amazon_dataset_V4`
+    SELECT *
+    FROM `spheric-engine-451615-a8.Amazon_Reviews_original_dataset_v3.Amazon_dataset_V3`
     WHERE parent_asin = '{asin}'
     """
     try:
@@ -23,5 +24,3 @@ def fetch_reviews(asin: str) -> pd.DataFrame:
         logger.exception(f"Error fetching reviews for ASIN {asin}: {e}")
         review_df = pd.DataFrame()
     return review_df
-
-    
