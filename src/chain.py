@@ -28,17 +28,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # For example, if using a file mounted in your container:
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
-system_prompt = (f''' You are a great Data Interpreter and a helpful AI assistant to help the sellers in Amazon eCommerce company. 
-                        Read all the data sent to you. 
-                         Please provide the most appropriate response based on the question'''
-                        "{context}"
-                        '''
-                        Help user answer any question regarding the product. 
-                        Just answer the questions in brief.
-
-                        Your responses should be clear, concise, and insightful.
-                        ''')
-PROMPT = PromptTemplate(template=system_prompt, input_variables=["context", "question"])
+# ---------- Chatbot Chain Setup ----------
 
 def create_qa_chain(retriever) -> RetrievalQA:
     """
@@ -48,6 +38,16 @@ def create_qa_chain(retriever) -> RetrievalQA:
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True,output_key="answer")
     # Initialize the chat LLM (e.g., GPT-4)
     llm = ChatDeepSeek(model_name="deepseek-chat", temperature=0.5)
+    system_prompt = """You are a highly intelligent assistant for Amazon eCommerce sellers. 
+                            Analyze the provided product data and answer seller-related queries. 
+                            Just answer concisely.
+
+                            Relevant Data:
+                            {context}
+
+                            Question: {question}
+                            """
+    PROMPT = PromptTemplate(template=system_prompt, input_variables=["context", "question"])
     # Build a RetrievalQA chain using a simple "stuff" chain type
     qa_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever, memory=memory, return_source_documents=True,
         combine_docs_chain_kwargs={'prompt': PROMPT})
