@@ -1,4 +1,10 @@
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+BUCKET_NAME = os.getenv("BUCKET_NAME")
 # Set API keys and tokens from environment variables
 os.environ['HF_TOKEN'] = os.getenv("HF_TOKEN")
 # os.environ['OPENAI_API_KEY'] = os.getenv("OPENAI_API_KEY")

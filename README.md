@@ -24,17 +24,31 @@ The **Seller Central AI Chatbot** is an intelligent assistant designed to help A
 ```plaintext
 Seller_central_AIChatbot/
 │
-├── app.py                         # Main Streamlit application file.
-├── fetch_reviews.py               # Functions to fetch reviews from BigQuery.
-├── create_retriever.py            # Functions to create retrievers from DataFrames.
-├── config.py                      # Environment variable configuration file (.env loader).
-├── requirements.txt               # Python dependencies file.
-├── Dockerfile                     # Containerization setup file (optional).
+├── .github/
+│   └── workflows/
+│       └── ci.yml                               # GitHub Actions workflow for CI/CD pipeline.
+├── config/
+│   └── config.py                                # Environment variable configuration file (.env loader). 
+├── Data
+│   ├── fetch_reviews.py                         # Functions to fetch user reviews from BigQuery.
+│   └── meta_data.py                             # Functions to fetch meta data from BigQuery.
+├── Data_pipeline                                # Complete data pipline structure (dive into it to explore in details)
+├── model_evaluation                             # Contains scripts for evaluating the chatbot's performance.
+│   ├── bias_detection.py                        # Script to detect and mitigate bias in the dataset or model responses.          
+│   ├── evaluate_responses.py                    # Evaluates response quality using metrics like BLEU and ROUGE.
+│   ├── evaluate_retrieval.py                    # Evaluates retrieval performance using metrics like Precision@k and Recall@k.
+│   ├── run.py                                   # Orchestrates the evaluation process by running retrieval and response.
+│   ├── tracking_code.py                         # Tracks evaluation metrics and logs them for analysis.
+│   └── utils.py                                 # Utility functions for loading datasets, preprocessing, or other shared tasks.
+├── src
+│   ├── app.py                                   # Main Streamlit application file.
+│   ├── chain.py                                 # Functions to creat QA chain from retrievers.
+│   └── create_retriever.py                      # Functions to create retrievers from DataFrames.                   
 ├── tests/
-│   └── test_pipeline.py           # Unit tests for pipeline components.
-└── .github/
-    └── workflows/
-        └── ci.yml                 # GitHub Actions workflow for CI/CD pipeline.
+│   └── test_pipeline.py                         # Unit tests for pipeline components.
+├── requirements.txt                             # Python dependencies file.
+└── Dockerfile                                   # Containerization setup file.
+
 ```
 
 ---
@@ -80,6 +94,9 @@ Seller_central_AIChatbot/
 
 ### **Running Locally**
 1. Start the Streamlit application:
+    ```bash
+   cd src
+   ```
    ```bash
    streamlit run app.py
    ```
