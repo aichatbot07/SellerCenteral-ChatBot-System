@@ -10,6 +10,8 @@ from Data.meta_data import fetch_metadata
 from Data.fetch_reviews import fetch_reviews
 from chain import create_qa_chain 
 from retriever import create_retriever_from_df 
+from model_evaluation.bias_detection import detect_bias, analyze_sentiments
+from model_evaluation.tracking_code import log_chat_interaction
 # Load environment variables from .env
 load_dotenv()
 
@@ -73,6 +75,16 @@ if asin:
                 st.write(answer)
             except Exception as e:
                 st.error(f"Error generating answer: {e}")
+                
+            # Call bias detection
+            review_sentiments = analyze_sentiments(review_df)
+            bias_result = detect_bias(answer, review_sentiments, len(review_df))
+            if bias_result["bias_detected"]:
+                st.warning(f"Bias detected: {bias_result['bias_types']}")
+            else:
+                st.success("No bias detected.")
+            
+            log_chat_interaction(user_question, answer,model_name="deepseek-chat", temperature=0.5)
         
         # Display conversation history
         st.markdown("### Conversation History")
