@@ -139,7 +139,6 @@ Here's a breakdown of the project's folder and file structure:
  │   │   ├── test_bias_detection.py # Test for bias_detection.py
  │   │   ├── test_pipeline.py       # Integration test for full ETL pipeline
  │   │   ├── test_schema.py         # Test for data schema validation (BigQuery)
- │   │   ├── test_dvc.py            # Test for DVC data versioning
  │   │   ├── test_airflow.py        # Test for Airflow DAG execution
  │
  ├── .github/workflows/             # CI/CD automation for testing
