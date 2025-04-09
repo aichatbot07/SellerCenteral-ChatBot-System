@@ -1,24 +1,23 @@
-# Use Python 3 as the base image
+# Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Set the working directory in the container
+WORKDIR /app
 
-# Set working directory inside the container
-WORKDIR /src/app
-
-# Copy requirements and install dependencies
+# Copy the requirements file into the container
 COPY requirements.txt .
+
+# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project files into the container
+# Set the environment variable for Google Cloud credentials
+ENV GOOGLE_APPLICATION_CREDENTIALS="/app/service_account.json"
+
+# Copy the entire project into the container
 COPY . .
 
-# Expose Streamlit port (default is 8501)
-EXPOSE 8501
+# Expose port 8080 for Cloud Run
+EXPOSE 8080
 
-# Run Streamlit app on container start
-CMD ["streamlit", "run", "app.py"]
+# Command to run the application
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8080"]

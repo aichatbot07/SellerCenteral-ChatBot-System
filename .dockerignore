@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+Data_pipeline/
+model_evaluation/
+env/
+.env
+.github/
+spheric-engine-451615-a8-3519add8a347.json
+
