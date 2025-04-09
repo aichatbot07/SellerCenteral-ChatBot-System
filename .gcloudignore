@@ -1,0 +1,7 @@
+# .gcloudignore file
+__pycache__/
+venv/
+Data_pipeline/
+model_evaluation/
+spheric-engine-451615-a8-3519add8a347.json
+.env
