@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_ID: spheric-engine-451615-a8
-  SERVICE: sellercentral-chatbot
+  SERVICE: chatbot-apiv2
   REGION: us-central1
 
 jobs:
