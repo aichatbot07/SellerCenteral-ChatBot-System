@@ -36,8 +36,10 @@ Seller_central_AIChatbot/
 │   ├── tracking_code.py                         # Tracks evaluation metrics and logs them for analysis.
 │   └── utils.py                                 # Utility functions for loading datasets, preprocessing, or other shared tasks.
 ├── src
-│   ├── app.py                                   # Main Streamlit application file.
+│   ├── app1.py                                   # Main Streamlit application file but no more use of it.
 │   ├── chain.py                                 # Functions to creat QA chain from retrievers.
+│   ├── chatbot_model.py                          # Functions to call chatbot model and recieve the asin number and queries.
+│   ├── main.py                                   # Function to deploy the complete chatbot model to create a API key to use in UI 
 │   └── create_retriever.py                      # Functions to create retrievers from DataFrames.                   
 ├── tests/
 │   └── test_pipeline.py                         # Unit tests for pipeline components.
