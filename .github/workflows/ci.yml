@@ -13,16 +13,17 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
 
-      - name: Set up Google Cloud CLI
+      - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: spheric-engine-451615-a8
-          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          export_default_credentials: true
-
-      - name: Configure Docker for GCP
-        run: gcloud auth configure-docker
+          install_components: 'gcloud'
 
       - name: Build Docker Image
         run: |
