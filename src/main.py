@@ -12,9 +12,8 @@ from src.chatbot_model import chatbot
 # FastAPI app initialization
 app = FastAPI()
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from config.config import logger
+
 
 # Define the request structure
 class ChatRequest(BaseModel):

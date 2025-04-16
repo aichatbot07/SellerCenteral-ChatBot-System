@@ -9,22 +9,7 @@ from langchain_community.document_loaders import DataFrameLoader
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 import logging
-# Set up logging (optional; adjust format as needed)
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# Set API keys and tokens from environment variables
-HF_TOKEN = os.getenv("HF_TOKEN")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-DEEPSEEK_API_KEY= os.getenv('DEEPSEEK_API_KEY')
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-LANGFUSE_PUBLIC_KEY = os.getenv("LANGFUSE_PUBLIC_KEY")
-LANGFUSE_SECRET_KEY = os.getenv("LANGFUSE_SECRET_KEY")
-LANGFUSE_HOST = os.getenv("LANGFUSE_HOST")
-GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-if not all([HF_TOKEN, DEEPSEEK_API_KEY, LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY, GOOGLE_APPLICATION_CREDENTIALS]):
-    raise ValueError("One or more required environment variables are missing.")
-
+from config.config import logger, HF_TOKEN, OPENAI_API_KEY,DEEPSEEK_API_KEY,GROQ_API_KEY,LANGFUSE_PUBLIC_KEY,LANGFUSE_SECRET_KEY,LANGFUSE_HOST,GOOGLE_APPLICATION_CREDENTIALS
 
 # ---------- Retriever Creation ----------
 

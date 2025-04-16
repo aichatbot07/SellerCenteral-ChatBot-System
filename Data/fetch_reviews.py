@@ -3,29 +3,18 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pandas as pd
 from google.cloud import bigquery
-import logging
 from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
+from config.config import logger, HF_TOKEN, OPENAI_API_KEY,DEEPSEEK_API_KEY,GROQ_API_KEY,LANGFUSE_PUBLIC_KEY,LANGFUSE_SECRET_KEY,LANGFUSE_HOST,GOOGLE_APPLICATION_CREDENTIALS
 
-# Set up logging (optional; adjust format as needed)
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# Set API keys and tokens from environment variables
-# HF_TOKEN = os.getenv("HF_TOKEN")
 import json
-
-GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
 # Write the secret to a file to be used by the GCP client libraries
 if GOOGLE_APPLICATION_CREDENTIALS and GOOGLE_APPLICATION_CREDENTIALS.startswith("{"):
     with open("/app/service_account.json", "w") as f:
         f.write(GOOGLE_APPLICATION_CREDENTIALS)
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/app/service_account.json"
-
-if not all([GOOGLE_APPLICATION_CREDENTIALS]):
-    raise ValueError("One or more required environment variables are missing.")
 
 def fetch_reviews(asin: str) -> pd.DataFrame:
     """
