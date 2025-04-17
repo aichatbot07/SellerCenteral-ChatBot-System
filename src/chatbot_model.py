@@ -28,13 +28,22 @@ if GOOGLE_APPLICATION_CREDENTIALS and GOOGLE_APPLICATION_CREDENTIALS.startswith(
 
 def chatbot(asin, user_question):
     try:
-        logger.info(f"Processing ASIN: {asin}")
+        logger.info(json.dumps({
+            "event": "chat_started",
+            "asin": asin,
+            "question": user_question
+        }))
+
         # Fetch reviews and metadata
         review_df = fetch_reviews(asin)
         meta_df = fetch_metadata(asin)
 
         if review_df.empty:
-            logger.warning(f"No reviews found for ASIN: {asin}")
+            logger.warning(json.dumps({
+                "event": "no_reviews_found",
+                "asin": asin,
+                "message": "No review data found for the provided ASIN."
+            }))
             return "No review data found for the provided ASIN.", []
 
         # Create a retriever from the reviews DataFrame
@@ -42,14 +51,23 @@ def chatbot(asin, user_question):
 
         # Create the QA chain using the retriever
         qa_chain = create_qa_chain(retriever)
-        logger.info(f"Done retriever process!!!")
+        logger.info(json.dumps({
+            "event": "retriever_ready",
+            "asin": asin
+        }))
 
         # Generate an answer using the QA chain
         answer = qa_chain.invoke({'question': user_question})
-        logger.info(f"Generated response: {answer['answer']}")
+
+        logger.info(json.dumps({
+            "event": "response_generated",
+            "asin": asin,
+            "answer": answer['answer']
+        }))
+
         # Extract conversation history
         conversation_history = qa_chain.memory.chat_memory.messages
-        for msg in qa_chain.memory.chat_memory.messages:
+        for msg in conversation_history:
             if isinstance(msg, HumanMessage):
                 role = "User"
             elif isinstance(msg, AIMessage):
@@ -58,10 +76,19 @@ def chatbot(asin, user_question):
                 role = "System"
             else:
                 role = "Unknown"
-            content = msg.content
+
+            logger.info(json.dumps({
+                "event": "chat_history",
+                "role": role,
+                "content": msg.content
+            }))
 
         return answer['answer'] 
 
     except Exception as e:
-        logger.error(f"Chatbot error: {str(e)}")
+        logger.error(json.dumps({
+            "event": "chatbot_error",
+            "asin": asin,
+            "error": str(e)
+        }))
         return f"Error processing query: {str(e)}", []
