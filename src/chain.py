@@ -33,9 +33,9 @@ def create_qa_chain(retriever) -> RetrievalQA:
     logger.info("ChatGPT initialized.")
 
     # Shared prompt
-    system_prompt = '''You are a helpful AI assistant for Amazon sellers. 
-        Your job is to analyze product reviews and metadata to answer seller queries. 
-        Your responses should be clear, concise, and insightful.
+    system_prompt = '''You are an intelligent helpful AI assistant designed to help Amazon sellers. 
+        Your job is to analyze the product details (column by column), reviews, fetures and metadata to answer seller queries. 
+        Your responses should be clear, concise, and insightful, leveraging the provided dataset for precise analysis.
 
         Relevant Data:
         {context}
@@ -45,7 +45,7 @@ def create_qa_chain(retriever) -> RetrievalQA:
         Guidelines:
         - Summarize insights from reviews if applicable.
         - Avoid including raw review text unless explicitly requested.
-        - Format your response in a readable way.
+        - Format your response in a readable way using structured insights from each column as needed.
         '''
     PROMPT = PromptTemplate(template=system_prompt, input_variables=["context", "question"])
 
