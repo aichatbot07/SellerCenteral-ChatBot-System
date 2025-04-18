@@ -19,7 +19,8 @@ def create_retriever_from_df(review_df: pd.DataFrame):
     """
     try:
         # Use DataFrameLoader to convert the DataFrame into documents
-        loader = DataFrameLoader(review_df)
+        review_df['combined_text'] = review_df.astype(str).apply(lambda row: ' | '.join(row.values), axis=1)
+        loader = DataFrameLoader(review_df, page_content_column="combined_text")
         review_docs = loader.load()
         logger.info(f"Loaded {len(review_docs)} review documents.")
         logger.info(f"Review Documents: {review_docs}")
