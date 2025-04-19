@@ -19,10 +19,10 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__FERNET_KEY: "Zw6tlFrxfoNkjJO8tSfCsEaiVLDKXYbDpby0vjnB3pQ="
-      _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_USER}  
-      _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_PASSWORD}  
-      _AIRFLOW_WWW_USER_EMAIL: ${AIRFLOW_EMAIL}  
-      _AIRFLOW_WWW_USER_ROLE: ${AIRFLOW_ROLE} 
+      _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_USER:-admin}
+      _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_PASSWORD:-admin}
+      _AIRFLOW_WWW_USER_EMAIL: ${AIRFLOW_EMAIL:-kaviarasu666@gmail.com}
+      _AIRFLOW_WWW_USER_ROLE: ${AIRFLOW_ROLE:-admin} 
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -30,7 +30,7 @@ services:
       - "8080:8080"
     command: >
       bash -c "airflow db upgrade &&
-               airflow users create --username ${AIRFLOW_USER} --password ${AIRFLOW_PASSWORD} --firstname Admin --lastname User --role ${AIRFLOW_ROLE} --email ${AIRFLOW_EMAIL} &&
+               airflow users create --username ${AIRFLOW_USER:-admin} --password ${AIRFLOW_PASSWORD:-admin} --firstname Admin --lastname User --role ${AIRFLOW_ROLE:-admin} --email ${AIRFLOW_EMAIL:-kaviarasu666@gmail.com} &&
                airflow webserver"
 
   scheduler:
