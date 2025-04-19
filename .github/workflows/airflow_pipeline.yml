@@ -76,27 +76,27 @@ jobs:
       if: always()
       run: docker-compose down -v
 
-  deploy_to_gce:
-    name: 🌐 Deploy to GCE Airflow Server
-    needs: airflow_pipeline
-    runs-on: ubuntu-latest
+  # deploy_to_gce:
+  #   name: 🌐 Deploy to GCE Airflow Server
+  #   needs: airflow_pipeline
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: 🔐 Authenticate with GCP
-      uses: google-github-actions/auth@v1
-      with:
-        credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+  #   steps:
+  #   - name: 🔐 Authenticate with GCP
+  #     uses: google-github-actions/auth@v1
+  #     with:
+  #       credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
-    - name: 🧰 Set up gcloud CLI
-      uses: google-github-actions/setup-gcloud@v1
-      with:
-        project_id: spheric-engine-451615-a8
+  #   - name: 🧰 Set up gcloud CLI
+  #     uses: google-github-actions/setup-gcloud@v1
+  #     with:
+  #       project_id: spheric-engine-451615-a8
 
-    - name: 🧳 SSH into GCE and Restart Airflow
-      run: |
-        gcloud compute ssh airflow-vm1 --zone=us-central1-c --command='
-          cd SellerCenteral-ChatBot-System/Data_pipeline &&
-          git pull origin main &&
-          docker-compose down -v &&
-          docker-compose up -d --build
-        '
+  #   - name: 🧳 SSH into GCE and Restart Airflow
+  #     run: |
+  #       gcloud compute ssh airflow-vm1 --zone=us-central1-c --command='
+  #         cd SellerCenteral-ChatBot-System/Data_pipeline &&
+  #         git pull origin main &&
+  #         docker-compose down -v &&
+  #         docker-compose up -d --build
+  #       '
