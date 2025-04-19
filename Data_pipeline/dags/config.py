@@ -1,5 +1,8 @@
-
-GCP_CREDENTIALS_PATH = "/opt/airflow/dags/gcp-credentials.json"
+import os
+from dotenv import load_dotenv
+# Load .env variables
+load_dotenv()
+GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 BUCKET_NAME = "ai_chatbot_seller_central"
 FILE_NAME = "new_data_sentiment.csv"
 
