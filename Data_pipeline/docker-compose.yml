@@ -27,6 +27,7 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
+      - ./dags/gcp-credentials.json:/opt/airflow/dags/gcp-credentials.json
     ports:
       - "8080:8080"
     command: >
@@ -46,6 +47,7 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
+      - ./dags/gcp-credentials.json:/opt/airflow/dags/gcp-credentials.json
     command: scheduler
     restart: always  
 
