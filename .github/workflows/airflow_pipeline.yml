@@ -94,7 +94,7 @@ jobs:
 
     - name: 🧳 SSH into GCE and Restart Airflow
       run: |
-        gcloud compute ssh airflow-vm --zone=us-central1-a --command='
+        gcloud compute ssh airflow-vm1 --zone=us-central1-a --command='
           cd SellerCenteral-ChatBot-System/Data_pipeline &&
           git pull origin main &&
           docker-compose down -v &&
