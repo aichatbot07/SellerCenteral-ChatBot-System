@@ -1,10 +1,10 @@
 import os
-from dotenv import load_dotenv
-# Load .env variables
-load_dotenv()
-GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-BUCKET_NAME = "ai_chatbot_seller_central"
-FILE_NAME = "new_data_sentiment.csv"
+
+# Directly use env variables passed to container (from docker-compose or GitHub secrets)
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+BUCKET_NAME = os.environ.get("BUCKET_NAME", "ai_chatbot_seller_central")
+FILE_NAME = os.environ.get("FILE_NAME", "new_data_sentiment.csv")
+
 
 # import os
 # import json
