@@ -48,6 +48,9 @@ jobs:
       run: |
         mkdir -p Data_pipeline/dags
         echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > Data_pipeline/dags/gcp-credentials.json
+    - name: Fix logs folder permission
+      run: |
+        sudo chmod -R 777 Data_pipeline/logs
 
     - name: Build Airflow Image
       run: docker-compose build
