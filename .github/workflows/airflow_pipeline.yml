@@ -1,0 +1,50 @@
+name: Run Airflow DAG CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Data_pipeline/**'
+      - '.github/workflows/airflow_pipeline.yml'
+
+  schedule:
+    - cron: '0 2 * * 0'     # Weekly - every Sunday at 2 AM UTC
+    - cron: '0 3 1 * *'     # Monthly - 1st of each month at 3 AM UTC
+    
+  workflow_dispatch:
+
+jobs:
+  airflow_pipeline:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Data_pipeline
+
+    steps:
+    - name:  Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up GCP Credentials Secret
+      run: |
+        mkdir -p dags
+        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > dags/gcp-credentials.json
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build Airflow Image
+      run: docker-compose build
+
+    - name: Start Airflow Services
+      run: docker-compose up -d
+
+    - name: Wait for Airflow to Initialize
+      run: sleep 60
+
+    - name: Test Airflow DAG
+      run: docker-compose exec webserver airflow dags test mlops_csv_pipeline 2025-03-03T00:00:00
+
+    - name: Stop and Clean Up
+      if: always()
+      run: docker-compose down -v
