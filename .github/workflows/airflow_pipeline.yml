@@ -17,6 +17,12 @@ on:
 jobs:
   airflow_pipeline:
     runs-on: ubuntu-latest
+    env:
+      AIRFLOW_USER: ${{ secrets.AIRFLOW_USER }}
+      AIRFLOW_PASSWORD: ${{ secrets.AIRFLOW_PASSWORD }}
+      AIRFLOW_EMAIL: ${{ secrets.AIRFLOW_EMAIL }}
+      AIRFLOW_ROLE: ${{ secrets.AIRFLOW_ROLE }}
+
     defaults:
       run:
         working-directory: Data_pipeline
