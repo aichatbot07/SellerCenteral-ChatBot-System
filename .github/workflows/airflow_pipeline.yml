@@ -11,6 +11,8 @@ on:
   schedule:
     - cron: '0 2 * * 0'     # Weekly - every Sunday at 2 AM UTC
     - cron: '0 3 1 * *'     # Monthly - 1st of each month at 3 AM UTC
+    
+  workflow_dispatch:
 
 jobs:
   airflow_pipeline:
