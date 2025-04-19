@@ -35,7 +35,7 @@ def create_qa_chain(retriever) -> RetrievalQA:
     # Shared prompt
     system_prompt = '''You are an intelligent helpful AI assistant designed to help Amazon sellers. 
         Your job is to analyze the product details (column by column), reviews, fetures and metadata to answer seller queries. 
-        Your responses should be clear, concise, and insightful, leveraging the provided dataset for precise analysis.
+        Your responses should be clear, concise, and leveraging the provided dataset for precise analysis, and Keep it short unless and untill the user mentioning about the detailedly response.
 
         Relevant Data:
         {context}
