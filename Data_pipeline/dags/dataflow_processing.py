@@ -8,9 +8,7 @@ from logging_setup import log_event
 # import tensorflow_data_validation as tfdv
 # import tensorflow as tf
 from matplotlib import pyplot as plt
-
-# Set GCP credentials dynamically from config.py
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = config.GCP_CREDENTIALS_PATH
+from config import GOOGLE_APPLICATION_CREDENTIALS
 
 def read_csv_from_gcp(**kwargs):
     """Reads a CSV file from GCS and returns it as a Pandas DataFrame."""
