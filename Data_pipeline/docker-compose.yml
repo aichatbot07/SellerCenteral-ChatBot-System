@@ -19,6 +19,7 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__FERNET_KEY: "Zw6tlFrxfoNkjJO8tSfCsEaiVLDKXYbDpby0vjnB3pQ="
+      GOOGLE_APPLICATION_CREDENTIALS: "/opt/airflow/dags/gcp-credentials.json"
       _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_USER:-admin}
       _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_PASSWORD:-admin}
       _AIRFLOW_WWW_USER_EMAIL: ${AIRFLOW_EMAIL:-kaviarasu666@gmail.com}
@@ -41,6 +42,7 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__FERNET_KEY: "Zw6tlFrxfoNkjJO8tSfCsEaiVLDKXYbDpby0vjnB3pQ="
+      GOOGLE_APPLICATION_CREDENTIALS: "/opt/airflow/dags/gcp-credentials.json"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
