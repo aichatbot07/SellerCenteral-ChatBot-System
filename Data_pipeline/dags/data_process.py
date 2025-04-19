@@ -5,8 +5,7 @@ from google.cloud import storage
 from io import StringIO
 import json
 import config
-# Set GCP credentials dynamically from config.py
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = config.GCP_CREDENTIALS_PATH
+from config import GOOGLE_APPLICATION_CREDENTIALS
 
 # Google Cloud Storage (GCS) Details
 INPUT_FOLDER = "reviews/"  # Folder containing JSONL files 
