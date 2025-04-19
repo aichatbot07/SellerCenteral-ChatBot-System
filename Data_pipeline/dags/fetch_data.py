@@ -6,8 +6,7 @@ from google.cloud import storage
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import config
-# Set GCP credentials dynamically from config.py
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = config.GCP_CREDENTIALS_PATH
+from config import GOOGLE_APPLICATION_CREDENTIALS
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
