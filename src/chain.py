@@ -45,7 +45,7 @@ def create_qa_chain(retriever) -> RetrievalQA:
         Guidelines:
         - Summarize insights from reviews if applicable.
         - Avoid including raw review text unless explicitly requested.
-        - Format your response in a readable way using structured insights from each column as needed.
+        - Format your response in a readable way.
         '''
     PROMPT = PromptTemplate(template=system_prompt, input_variables=["context", "question"])
 
