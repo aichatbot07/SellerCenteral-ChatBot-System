@@ -25,7 +25,6 @@ WORKDIR /opt/airflow
 
 # Copy your DAGs
 COPY ./dags /opt/airflow/dags
-COPY ./plugins /opt/airflow/plugins
 
 # Expose the port the app runs on
 EXPOSE 8080
