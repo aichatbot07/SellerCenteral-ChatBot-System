@@ -1,7 +1,7 @@
 # SellerCenteral-ChatBot-System
 
 ## **Overview**
-The **Seller Central AI Chatbot** is an intelligent assistant designed to help Amazon sellers analyze product reviews and metadata, retrieve relevant information, and answer seller-related queries. It leverages **LangChain**, **FAISS**, and **BigQuery** to provide accurate and insightful responses.
+The **Seller Central AI Chatbot** is an intelligent assistant designed to help Amazon sellers analyze product reviews and metadata, retrieve relevant information, and answer seller-related queries. It leverages **LangChain**, **FAISS**, and **BigQuery** to provide accurate and insightful response.
 
 ---
 
