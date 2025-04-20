@@ -3,3 +3,4 @@ SellerCenteral-ChatBot-System/model_evaluation/__pycache__
 venv/
 spheric-engine-451615-a8-3519add8a347.json
 .env
+Data_pipeline/.env
