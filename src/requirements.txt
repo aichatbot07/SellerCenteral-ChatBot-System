@@ -1,0 +1,17 @@
+streamlit
+pandas
+google-cloud-bigquery
+python-dotenv
+langchain
+langchain-openai
+langchain-deepseek
+langchain-groq 
+langchain-google
+faiss-cpu
+langfuse
+langchain-community
+langserve 
+fastapi
+db-dtypes
+google-cloud-bigquery-storage
+sentence-transformers

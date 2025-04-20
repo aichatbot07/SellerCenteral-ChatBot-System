@@ -15,6 +15,11 @@ google-cloud-bigquery
 google-auth>=2.20.0
 requests>=2.28.0
 urllib3>=1.26.15
+nltk
+textblob
+torch
+transformers
+datasets
 # apache-airflow[gcp]==2.6.0
 # apache-beam[gcp]==2.46.0
 # pytest

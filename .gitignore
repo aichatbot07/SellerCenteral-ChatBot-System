@@ -1,1 +1,7 @@
 Data_pipeline/dags/gcp-credentials.json
+src/gcp-credentials.json
+src/spheric-engine-451615-a8-f9523dbb5c8a.json
+.env
+/Data_pipeline/data/unprocessed/
+Data_pipeline/data/unprocessed/filtered_merged_file.csv
+Data_pipeline/data/processed/hf_dataset/*.arrow

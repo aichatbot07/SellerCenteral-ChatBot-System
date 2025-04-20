@@ -1,34 +1,40 @@
-# Use an official Python runtime as a parent image
+# Builder stage
 FROM apache/airflow:2.6.0 AS builder
 
-# Set the working directory in the container
-WORKDIR /opt/airflow
+# Switch to root for system package installation
+USER root
 
-# Copy the current directory contents into the container at /usr/src/app
+# Install system dependencies
+RUN apt-get update && apt-get install -y curl build-essential
+
+# Switch back to airflow user for Rust/Python installations
+USER airflow
+
+# Install Rust toolchain in airflow user's home
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH="/home/airflow/.cargo/bin:${PATH}"
+
+WORKDIR /opt/airflow
 COPY requirements.txt ./
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --upgrade pip 
+# Install Python dependencies
+RUN pip install --upgrade pip
 RUN pip install --user --no-cache-dir -r requirements.txt
 
-# Start a new stage for a smaller final image
+# Final stage
 FROM apache/airflow:2.6.0
 
-# Copy installed packages from builder stage
+# Copy installed components from builder
+USER airflow
 COPY --from=builder /home/airflow/.local /home/airflow/.local
+COPY --from=builder /home/airflow/.cargo /home/airflow/.cargo
 
-# Make sure scripts in .local are usable:
-ENV PATH=/home/airflow/.local/bin:$PATH
+# Set environment variables
+ENV PATH="/home/airflow/.local/bin:/home/airflow/.cargo/bin:${PATH}"
 
-# Set the working directory to /opt/airflow
 WORKDIR /opt/airflow
-
-# Copy your DAGs
 COPY ./dags /opt/airflow/dags
 COPY ./plugins /opt/airflow/plugins
 
-# Expose the port the app runs on
 EXPOSE 8080
-
-# Run airflow webserver when the container launches
 CMD ["airflow", "webserver"]

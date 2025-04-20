@@ -26,6 +26,7 @@ services:
       _AIRFLOW_WWW_USER_ROLE: ${AIRFLOW_ROLE} 
     volumes:
       - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
     ports:
@@ -46,6 +47,7 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: "/opt/airflow/dags/gcp-credentials.json"  
     volumes:
       - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
     command: scheduler
