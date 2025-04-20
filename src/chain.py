@@ -8,6 +8,8 @@ import logging
 # LangChain & vector store imports
 from langchain.chains import RetrievalQA
 from langchain_community.chat_models import ChatOpenAI
+from langchain.memory import ChatMessageHistory
+from langchain_core.runnables import RunnableConfig
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 from langchain.chains import ConversationalRetrievalChain
@@ -21,7 +23,8 @@ def create_qa_chain(retriever) -> RetrievalQA:
     Creates a RetrievalQA chain where LLaMA provides initial answers and ChatGPT supervises/refines them.
     """
     # Initialize memory for context tracking
-    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True, output_key="answer")
+    history = ChatMessageHistory()
+    memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=history)
     logger.info(f"Initialized conversation memory.")
 
     # Step 1: LLaMA (via Groq) generates the initial response
