@@ -1,0 +1,41 @@
+# Core dependencies
+torch
+pandas
+numpy
+scikit-learn
+
+# Transformers and embeddings
+transformers
+sentence-transformers
+
+# LangChain ecosystem
+langchain
+langchain-deepseek
+langchain-core
+
+# Google Cloud
+google-cloud-bigquery
+google-auth
+google-api-core
+
+# Environment variables
+python-dotenv
+
+# Logging and utilities
+mlflow
+loguru  # Optional, depending on your logger setup
+
+# OpenAI client
+openai
+
+# Required for parsing and output formatting
+typing-extensions
+
+# Add if using subprocess features
+psutil  # optional, for managing subprocesses
+
+# Required if using BigQuery from local machine
+grpcio
+protobuf
+python-json-logger
+
