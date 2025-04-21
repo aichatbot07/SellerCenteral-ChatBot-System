@@ -1,6 +1,6 @@
 import os
 from google.cloud import bigquery
-import config
+import Data_pipeline.config as config
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = config.GCP_CREDENTIALS_PATH
 

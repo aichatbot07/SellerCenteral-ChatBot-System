@@ -2,7 +2,7 @@ import os
 from google.cloud import storage
 import pandas as pd
 from io import BytesIO
-import config
+import Data_pipeline.config as config
 import pickle
 
 # Set GCP credentials dynamically from config.py
