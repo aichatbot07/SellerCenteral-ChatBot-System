@@ -18,10 +18,6 @@ jobs:
   evaluate-model:
     name: Run Model Evaluation
     runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        working-directory: model_evaluation
 
     steps:
       - name: Checkout code
@@ -48,7 +44,8 @@ jobs:
         run: gcloud auth configure-docker --quiet
 
       - name: Build Docker image for model evaluation
-        run: docker build -t model-eval-image .
+        working-directory: model_evaluation
+        run: docker build -t model-eval-image:latest .
 
       - name: Run model evaluation container
         run: |
@@ -61,4 +58,4 @@ jobs:
             -e LANGFUSE_SECRET_KEY=${{ secrets.LANGFUSE_SECRET_KEY }} \
             -e LANGFUSE_HOST=${{ secrets.LANGFUSE_HOST }} \
             -e GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} \
-            model-eval-image
+            model-eval-image:latest
