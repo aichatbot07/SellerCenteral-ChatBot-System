@@ -47,9 +47,6 @@ jobs:
       - name: Configure Docker for Google Artifact Registry
         run: gcloud auth configure-docker --quiet
 
-      - name: Inject GCP credentials
-        run: echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > service_account.json
-
       - name: Build Docker image for model evaluation
         run: docker build -t model-eval-image .
 
@@ -63,5 +60,5 @@ jobs:
             -e LANGFUSE_PUBLIC_KEY=${{ secrets.LANGFUSE_PUBLIC_KEY }} \
             -e LANGFUSE_SECRET_KEY=${{ secrets.LANGFUSE_SECRET_KEY }} \
             -e LANGFUSE_HOST=${{ secrets.LANGFUSE_HOST }} \
-            -e GOOGLE_APPLICATION_CREDENTIALS=/app/service_account.json \
+            -e GOOGLE_APPLICATION_CREDENTIALS=GOOGLE_APPLICATION_CREDENTIALS \
             model-eval-image
