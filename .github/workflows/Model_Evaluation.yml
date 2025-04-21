@@ -1,9 +1,6 @@
 name: Run Model Evaluation 
 
 on:
-    paths:
-      - 'model_evaluation/**'
-      - '.github/workflows/Model_Evaluation.yml'
   workflow_dispatch:
 
 env:
