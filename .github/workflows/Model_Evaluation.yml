@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'model_evaluation/**'
+      - '.github/workflows/Model_Evaluation.yml'
+  workflow_dispatch:
 
 env:
   PROJECT_ID: spheric-engine-451615-a8
@@ -11,9 +15,13 @@ env:
   REGION: us-central1
 
 jobs:
-  deploy:
-    name: Build and Deploy to Cloud Run
+  evaluate-model:
+    name: Run Model Evaluation
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: model_evaluation
 
     steps:
       - name: Checkout code
@@ -39,9 +47,11 @@ jobs:
       - name: Configure Docker for Google Artifact Registry
         run: gcloud auth configure-docker --quiet
 
-      - name: Build Docker image
-        run: docker build -t kavi963/chatbot_evaluation:latest .
+      - name: Inject GCP credentials
+        run: echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > model_evaluation/service_account.json
 
-      - name: Push Docker Image
-        run: |
-          docker push kavi963/chatbot_evaluation:latest
+      - name: Build Docker image for model evaluation
+        run: docker build -t model-eval-image .
+
+      - name: Run model evaluation container
+        run: docker run --rm model-eval-image
