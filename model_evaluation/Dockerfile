@@ -19,8 +19,7 @@ RUN apt-get update && apt-get install -y \
 # Install Python dependencies
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Set environment variable for Google Cloud credentials if used
-ENV GOOGLE_APPLICATION_CREDENTIALS="/app/service_account.json"
+COPY service_account.json /app/service_account.json
 
 # Run all step scripts
 CMD ["sh", "-c", "python Pipeline/step_01.py && \
