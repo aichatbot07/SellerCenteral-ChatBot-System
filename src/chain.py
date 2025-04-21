@@ -21,8 +21,8 @@ def create_qa_chain(retriever) -> RetrievalQA:
     Creates a RetrievalQA chain where LLaMA provides initial answers and ChatGPT supervises/refines them.
     """
     # Initialize memory for context tracking
-    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True, output_key="answer")
-    logger.info(f"Initialized conversation memory.")
+    # memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True, output_key="answer")
+    # logger.info(f"Initialized conversation memory.")
 
     # Step 1: LLaMA (via Groq) generates the initial response
     llama_llm = ChatGroq(groq_api_key=GROQ_API_KEY, model_name="llama3-8b-8192", temperature=0.7)
@@ -58,7 +58,7 @@ def create_qa_chain(retriever) -> RetrievalQA:
         return_source_documents=True,
         combine_docs_chain_kwargs={'prompt': PROMPT}
     )
-    llama_qa_chain.memory = memory
+    # llama_qa_chain.memory = memory
     logger.info("LLaMA QA chain ready.")
 
     # Step 2: Define a wrapper that feeds LLaMA's answer into ChatGPT
@@ -97,9 +97,9 @@ def create_qa_chain(retriever) -> RetrievalQA:
             improved_response = self.supervisor_llm.invoke(prompt).content
             return {"answer": improved_response, "source_documents": llama_response.get("source_documents", [])}
 
-        @property
-        def memory(self):
-            return self.inner_chain.memory
+        # @property
+        # def memory(self):
+        #     return self.inner_chain.memory
 
     qa_chain = SupervisorChain(llama_qa_chain, chatgpt_llm)
     logger.info("Supervisor QA chain ready.")
