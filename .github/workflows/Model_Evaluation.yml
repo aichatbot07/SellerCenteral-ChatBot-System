@@ -1,9 +1,6 @@
 name: Run Model Evaluation 
 
 on:
-  push:
-    branches:
-      - main
     paths:
       - 'model_evaluation/**'
       - '.github/workflows/Model_Evaluation.yml'
