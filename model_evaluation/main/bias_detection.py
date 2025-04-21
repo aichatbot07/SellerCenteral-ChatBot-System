@@ -1,8 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'config')))
-from config.config import logger, HF_TOKEN, OPENAI_API_KEY,DEEPSEEK_API_KEY,GROQ_API_KEY,LANGFUSE_PUBLIC_KEY,LANGFUSE_SECRET_KEY,LANGFUSE_HOST,GOOGLE_APPLICATION_CREDENTIALS
-
+from config import logger, HF_TOKEN, OPENAI_API_KEY,DEEPSEEK_API_KEY,GROQ_API_KEY,LANGFUSE_PUBLIC_KEY,LANGFUSE_SECRET_KEY,LANGFUSE_HOST,GOOGLE_APPLICATION_CREDENTIALS
 import json
 import torch
 import pandas as pd
@@ -19,12 +18,6 @@ from langchain.prompts import ChatPromptTemplate
 
 from google.cloud import bigquery
 import json
-
-# Write the secret to a file to be used by the GCP client libraries
-if GOOGLE_APPLICATION_CREDENTIALS and GOOGLE_APPLICATION_CREDENTIALS.startswith("{"):
-    with open("/app/service_account.json", "w") as f:
-        f.write(GOOGLE_APPLICATION_CREDENTIALS)
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/app/service_account.json"
 
 
 class BiasDetection:
