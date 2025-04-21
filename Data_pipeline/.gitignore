@@ -1,3 +1,20 @@
-env/
-gcp-credentials.json/
-.env
+# env/
+# gcp-credentials.json/
+# .env
+
+
+GCP_CREDENTIALS_JSON={
+  "type": "service_account",
+  "project_id": "spheric-engine-451615-a8",
+  "private_key_id": "2958a19c561b584fb842ce9d1718f1b0be414ecb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDarmh0RDMesFPx\np3Jv3ETQT+vl5ABRN41dfPBdd6IIMIeofeohc8Yz1hSZn+4BF529o+uIuL3W4bcP\nMHxQTeWec+x+RxAFhpq/BwR0CNbEn6iHnb7DV5Ug2d7zxHVHr6b6JJteEcx0mdwT\newIK0M/ZhoZ7A+GV+DFuqEJIpKFVotq6zeYk5vlefmhVkIvn3s50+Y7qFFsPW1Vn\nIm3BswUx8Ilqx2DkNxEFfa4iERLBnEuVym1HL1ubXegKdqULfnNSZIAUhadUDAi4\ntGhCzFsGMlGfa5KG5Ni2HfZk56I1Sm1KPaUg4qlnZY2QJSQBugEM9MZuwu34eCSr\nRaSsYoFNAgMBAAECggEARirFKF1Du9qfLMBqRzs5t0+VpS+p7GVzTiaLJ6p9yrvr\no2Q3jmFMHRDZjkuTPjV6L0HcDwQcIclOCCkqEkhUX6nZndEmcmd02suhIaw+YVvL\nYyx568r79k0CLVyBty1E2imJ0r7KSDWgOH31M0w6DRWNrAYcSZcYIWYK0q1EeSnO\ntCZKLwUpS/Mo0Pg1fnQpPU/dKSnPdJqZFwsdna7T96WukI++zuIZRtFv1kRfnoNI\nfF2Aw/35H/UldlhqEmBZLFzV+OS5D8CSXLuUv3ZML2yD7kJijyXdg1ICvp3hItxl\nyjkoTy4qd8SZbwPB3Nhneguhd6AUv/ZqjdF1Eq6k7wKBgQD0KX/OXbM99idSAL5Y\nCfw5eKi/VCTTdjLSQdSpUcp03Ec3nvuZSfndJGCqmCpx5RFmWZfvkDNPBnlNv0MI\n/Ld4FrSOAHSvtpA/SJ9E/0vkCjNrcq4bmV1JJcOvjAleNV7728Us0tNcz9ixI6V7\n0+jnEcOiBmhtq7htPZvkT/LXuwKBgQDlSKUXCa+ZIvSMSg8b/durwFCotsNZVQtY\n42EajVPWv8L95wNhNj5L3n/aLmesdWTSSNopToXmRWGvWtQQNkOz87unI4l4wC19\nGnnb9Ed9J2MnRYpqULMRjIxJXAj04/GL5v5NzTFS1omXAa0MjU5Za5lO+hGvJpZt\nqE4Na6amlwKBgQDuehYd70Eh9OoE2zsO7HnRfHt9nOb3L4yF9syKsJuJNpnMxtjB\nqRKGn4BXP5a9ddpf2IRg9bxXpGAYwwXrokJk5fBmfiV6dls/pGQD1UM/sYL1oKZT\nyKDn0B3ouWNxA7oJT2ev1x+gmFXy9nkskBb8kko9V/rpm37gG/vGrRvo/wKBgGa+\nvvwr4vyEpYGYTl0EzUOR0pNIExIdAhC7E/CKFF/PXtnYg7M0U4Y8Fp723I5zrNJu\nwxRvk6E0ximGUjFRn9UsC5NCYYAy3i+JhcIDHWYAGHaouvYZY6UhjlvxWjIjU0KW\nKK9EnC265b09iwZs7Ac2KGUzumj6qb5KBXAOJYfRAoGAbBO6H05Xj4dX8iOo/gu8\ng3TZG6NTeVkl+Bdr8+Kr2eO+FpfE8TtrZOA8fCWPKp8/P/hi+MaDJI7t7Aj8YqBT\ndtePbViMncMta9mJzJgo7aIC4+xhfGgpxqFIYQAxikKzpXRKV+CgehVKGFMOyYqy\nj6ODFdYbzeObr7J10qnmLHk=\n-----END PRIVATE KEY-----\n",
+  "client_email": "scrape-service@spheric-engine-451615-a8.iam.gserviceaccount.com",
+  "client_id": "105271924108090274942",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/scrape-service%40spheric-engine-451615-a8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+BUCKET_NAME=ai_chatbot_seller_central
+FILE_NAME=new_data_sentiment.csv

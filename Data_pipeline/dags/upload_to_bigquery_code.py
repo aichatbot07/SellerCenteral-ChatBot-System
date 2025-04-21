@@ -1,7 +1,7 @@
 import os
 from google.cloud import bigquery
 import pandas as pd
-import config
+import Data_pipeline.dags.config as config
 from logging_setup import log_event
 import pickle
 import logging
