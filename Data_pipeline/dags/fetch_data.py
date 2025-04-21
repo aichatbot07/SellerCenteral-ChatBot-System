@@ -5,7 +5,7 @@ import gzip
 from google.cloud import storage
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-import Data_pipeline.config as config
+import Data_pipeline.dags.config as config
 
 # Set GCP credentials dynamically from config.py
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = config.GCP_CREDENTIALS_PATH
